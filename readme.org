@@ -1,0 +1,17 @@
+* ビルド
+
+#+BEGIN_SRC shell
+$ npm run page
+$ google-chrome index.html
+#+END_SRC
+
+* min-caml の変更点
+
+ソースは [[https://github.com/yuki67/min-caml][yuki67/min-caml]] を元にしている。
+bucklescript から使うために以下の変更をした。
+
+- anchor.ml を削除
+- main.ml 末尾の =let _ = ...= を削除
+- =Emit= モジュールの =gethi=, =getlo= を OCaml の関数として定義
+- =Main.iter= を外部から呼べるように変更
+- 正規表現を使っていた部分を =[%re ...]= と書きなおす

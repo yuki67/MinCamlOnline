@@ -1,0 +1,32 @@
+{
+    "name": "shape_ocaml",
+    "version": "0.1.0",
+    "generators" : [
+        {
+            "name" : "ocamlyacc",
+            "command": "ocamlyacc $in"
+        },
+        {
+            "name" : "ocamllex",
+            "command": "ocamllex $in"
+        }
+    ],
+    "sources" : [
+        {
+            "dir" : "src/min-caml/",
+            "generators" : [
+                {
+                    "name" : "ocamlyacc",
+                    "edge" : ["parser.ml", "parser.mli", ":", "parser"]
+                },
+                {
+                    "name" : "ocamllex",
+                    "edge" : ["lexer.ml", ":", "lexer"]
+                }
+            ]
+        },
+	{
+            "dir" : "src/page"
+        },
+    ]
+}
