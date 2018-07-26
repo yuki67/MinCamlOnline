@@ -14,4 +14,4 @@ let closure str  = alpha    str |> Closure.f
 let virtual_ str = closure  str |> Virtual.f
 let simm str     = virtual_ str |> Simm.f
 let regalloc str = simm     str |> RegAlloc.f
-let emit str     = regalloc str |> Emit.f stdout
+let emit str     = regalloc str |> Emit.f

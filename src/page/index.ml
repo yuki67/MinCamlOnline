@@ -18,6 +18,7 @@ let closure_area = find_and_set_text_area "closure"
 let virtual_area = find_and_set_text_area "virtual"
 let simm_area = find_and_set_text_area "simm"
 let reg_alloc_area = find_and_set_text_area "reg"
+let emit_area = find_and_set_text_area "emit"
 
 let text_areas = [
   syntax_area;
@@ -28,6 +29,7 @@ let text_areas = [
   virtual_area;
   simm_area;
   reg_alloc_area;
+  emit_area;
 ]
 
 let program_area =
@@ -57,7 +59,8 @@ let compile () =
   let x = Simm.f x in
   TextArea.set_text (Asm.string x) simm_area;
   let x = RegAlloc.f x in
-  TextArea.set_text (Asm.string x) reg_alloc_area
+  TextArea.set_text (Asm.string x) reg_alloc_area;
+  TextArea.set_text (Emit.f x) emit_area
 
 let compile_button =
   match Document.getElementById "compile" with
