@@ -46,15 +46,17 @@ let rec format_string = function
   | LE (s1, s2) -> binary "LE" (format_string s1) (format_string s2)
   | If (s1, s2, s3) ->
     ternary "If" (format_string s1) (format_string s2) (format_string s3)
-  | Let ((id, _), s1, s2) ->
-    Printf.sprintf "@[<v 0>Let (@[<0>%s,@ %s,@]@ %s)@]"
+  | Let ((id, t), s1, s2) ->
+    Printf.sprintf "@[<v 0>Let (@[<0>%s: %s,@ %s,@]@ %s)@]"
       (quoted id)
+      (Type.format_string t)
       (format_string s1)
       (format_string s2)
-  | Var id -> unary "Var" id;
+  | Var id -> unary "Var" (quoted id);
   | LetRec (def, s) ->
-    Printf.sprintf "@[<v 0>Let (@[<0>%s,@ %s,@ %s,@]@ %s)@]"
+    Printf.sprintf "@[<v 0>LetRec (@[<0>%s: %s,@ %s,@ %s,@]@ %s)@]"
       (quoted (fst def.name))
+      (Type.format_string (snd def.name))
       (format_string_of_list (List.map fst def.args) quoted)
       (format_string def.body)
       (format_string s)
@@ -65,7 +67,7 @@ let rec format_string = function
   | Tuple slist ->
     unary "Tuple" (format_string_of_list slist format_string)
   | LetTuple (alist, s1, s2) ->
-    Printf.sprintf "@[<v 0>Let (@[<0>%s,@ %s,@]@ %s)@]"
+    Printf.sprintf "@[<v 0>LetTuple (@[<0>%s,@ %s,@]@ %s)@]"
       (format_string_of_list (List.map fst alist) quoted)
       (format_string s1)
       (format_string s2)

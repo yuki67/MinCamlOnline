@@ -111,9 +111,10 @@ let format_string_of_ioi = function
 
 let rec format_string_of_asm = function
   | Ans exp -> unary "Ans" (format_string_of_exp exp)
-  | Let ((id, _), exp, asm) ->
-    Printf.sprintf "@[<v 0>Let (@[<0>%s,@ %s,@]@ %s)@]"
+  | Let ((id, t), exp, asm) ->
+    Printf.sprintf "@[<v 0>Let (@[<0>%s: %s,@ %s,@]@ %s)@]"
       (unary "Var" id)
+      (Type.format_string t)
       (format_string_of_exp exp)
       (format_string_of_asm asm)
 

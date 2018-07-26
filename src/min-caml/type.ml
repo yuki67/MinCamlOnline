@@ -17,7 +17,9 @@ let rec format_string = function
   | Bool -> "@[bool@]"
   | Int -> "@[int@]"
   | Float -> "@[float@]"
-  | Fun (tlist, t) -> binary "Fun" (format_string_of_list tlist format_string) (format_string t)
+  | Fun (tlist, t) ->
+    Printf.sprintf "@[<1>%s@ ->@ [%s]@]"
+      (format_string_of_list tlist format_string) (format_string t)
   | Tuple tlist -> unary "Tuple" (format_string_of_list tlist format_string)
   | Array t -> unary "Array" (format_string t)
   | Var t_op -> unary "Var" (match !t_op with  None -> "None" | Some t -> format_string t)
